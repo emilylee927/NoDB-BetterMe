@@ -32,6 +32,10 @@ display: flex;
 
 .how-are-you {
     text-align: center;
+    font-family: 'Arya', sans-serif;
+    font-size: 40px;
+    letter-spacing: 1.2px;
+
 }
 
 

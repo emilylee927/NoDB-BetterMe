@@ -6,7 +6,7 @@ import "./App.css";
 //Components
 import Mood from "./components/Mood.js";
 import Calendar from "./components/Calendar.js";
-import Daily from "./components/Daily.js";
+import Daily from "./components/daily-page/Daily.js";
 //logo
 import Logo from "./BetterMe logo Text.png";
 import Calendaricon from "./calendar.png";
@@ -18,8 +18,8 @@ class App extends React.Component {
     super();
     this.state={
       currentPage:"mood",
-      date:""
-
+      date: "",
+      mood: ""
 
     }
     this.changeMoodToDaily = this.changeMoodToDaily.bind(this);
@@ -32,8 +32,10 @@ changeMoodToDaily(mood,date){
     axios.post("/api/betterme",{
       mood,
       date
+    }).then(response => {
+      let mood = response.data[date].mood
+      this.setState({currentPage:"daily", date, mood})
     })
-    this.setState({currentPage:"daily", date})
   }.bind(this)
 }
 
@@ -49,12 +51,16 @@ homeButton(){
 
   render(){
     return(
-      <div className="app-outer-div">
+      <div className={
+      this.state.currentPage === "mood" ? "app-outer-div background-plain" :
+      this.state.currentPage === "daily" ? "app-outer-div background-plain2" :
+      this.state.currentPage === "calendar" ? "app-outer-div background-plain3" :
+      "app-outer-div"}>
         <header className="logo">
         <a href="#" onClick={this.homeButton}><img className="homeButton" src={Logo}></img></a>
-        {this.state.currentPage === "mood"
+        {this.state.currentPage !== "calendar"
         ?
-        <a  href="#" onClick={this.changeMoodToCalendar}><img src={Calendaricon}></img></a>
+        <a  href="#" onClick={this.changeMoodToCalendar}><img className="calendaricon" src={Calendaricon}></img></a>
         : null}
         </header>
         
@@ -67,7 +73,7 @@ homeButton(){
       <Calendar/> 
       : this.state.currentPage === "daily"
       ?
-      <Daily date={this.state.date}/>
+      <Daily date={this.state.date} mood={this.state.mood}/>
 
       : null}
       </nav>

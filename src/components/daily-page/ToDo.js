@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import axios from "axios";
 import "./ToDo.css";
+import xbutton from "../../x-button.png";
 
 class ToDo extends Component {
     constructor(){
@@ -33,8 +34,25 @@ class ToDo extends Component {
             task,
             todoinput: ''
         })
+    }).catch(error => {
+        console.log(error);
+        alert("Prioritize baby! (only 8 tasks at a time)")
     })
   }
+
+
+  componentDidMount(){
+      console.log("hi")
+    axios.get("/api/betterme")
+    .then(response=>{
+        let task = this.addEditing(response.data[this.props.date].todo)
+    console.log(response.data);
+    this.setState({task})
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
 
   addEditing = task => {
       let result = task.map( el => {
@@ -108,11 +126,24 @@ class ToDo extends Component {
     }
 
 
+deleteTask =e => {
+    let id = e.target.getAttribute("id");
+    axios.delete(`/api/betterme/todo/${id}`, {
+        data: {date: this.props.date}
+    }).then(response=>{
+        let task = this.addEditing(response.data[this.props.date].todo)
+        this.setState({
+            task
+        })
+    })
+
+}
+
     render(){
         let tasklist = this.state.task.map(val =>{
             return (
                 <div key={val.id} className={'task' + (val.completedTask ? ' completed' : '')}>
-                    <input onClick={this.toggle} id={val.id} className="checkbox" type="checkbox"/>
+                    <input onClick={this.toggle} id={val.id} checked={val.completedTask ? true : false} className="checkbox" type="checkbox" />
                     {val.editing == true
                     ?
                     <form onSubmit={this.editSubmit} id={val.id} className="displayinline">
@@ -121,6 +152,7 @@ class ToDo extends Component {
                     :
                     <p className='todotaskadded' onDoubleClick={this.editTodo} id={val.id}>{val.task}</p>
                     }
+                    <a onClick={this.deleteTask} id={val.id} href="#"><img className="x" src={xbutton}></img></a>
                 </div> 
             )
         })
@@ -128,10 +160,12 @@ class ToDo extends Component {
         <div className="inputbar-container">
             <div className="inputbar">
                 <form onSubmit={this.handleSubmit}>
-                    <input placeholder="What you gotta do today?" type="text" value={this.state.todoinput} onChange={this.handleChange}/>
+                    <input placeholder="What you gotta do today?" type="text" value={this.state.todoinput} onChange={this.handleChange} className="todo-input"/>
                 </form>
             </div>
+            <div className="tasklist-container">
                 {tasklist}
+            </div>
         </div>
         )
     }

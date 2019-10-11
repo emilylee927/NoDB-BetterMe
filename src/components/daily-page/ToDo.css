@@ -1,0 +1,61 @@
+.round {
+    border-radius: 90%;
+}
+
+.todotaskadded{
+    text-align: left;
+    flex-grow: 2;
+    margin:1px;
+}
+
+.displayinline {
+    display: inline
+}
+
+.completed {
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+
+.inputbar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    justify-items: center;
+
+}
+
+.inputbar{
+    display:flex;
+    flex-direction: column;
+    max-height: 500px;
+}
+
+.todo-input {
+    height: 30px;
+    width: 300px;
+    font-size: 20px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+      border-bottom: 1px solid black;
+}
+
+.tasklist-container {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.x{
+    width:12px;
+   
+}
+
+.task{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}

@@ -13,13 +13,7 @@ code {
 }
 
 
-body, html {
-  height: 100%;
-  margin: 0;
-  background-image: url('./plain.png');
-  background-size: cover;
-  background-position:center;
-  background-repeat: no-repeat;
-    
-  
+body, html, #root, #root>div {
+    height: 100%;
+    margin: 0;
 }
