@@ -9,13 +9,13 @@ class Mood extends React.Component {
   constructor(){
     super();
     this.state={
-      dateInput: moment().format('YYYY MM DD')
+      dateInput: moment().format('YYYYMMDD')
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(value) {
-    this.setState({ dateInput: value })
+    this.setState({ dateInput: moment(value).format('YYYYMMDD') })
 }
 
   render(){
@@ -24,7 +24,7 @@ class Mood extends React.Component {
       <div className='main'>
         <div className="greeting"> 
           <h1 className="how-are-you">How Are You Today? &nbsp;</h1>
-          <ReactDatez className="react-datez" name="dateInput" allowPast={true} handleChange={this.handleChange} value={this.state.dateInput} />
+          <ReactDatez className="react-datez" name="dateInput" allowPast={true} handleChange={this.handleChange} value={this.state.dateInput}/>
         </div>
       </div>
        

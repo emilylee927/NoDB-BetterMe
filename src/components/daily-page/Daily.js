@@ -26,7 +26,7 @@ class Daily extends React.Component{
         return(
             <div className="daily-parent">
             <div className="date-mood-parent">
-                <h2 className="date">{moment(this.props.date, 'YYYY MM DD').format('MMM DD')}</h2>
+                <h2 className="date">{moment(this.props.date, 'YYYYMMDD').format('MMM DD')}</h2>
                 <img src={moodMap[this.props.mood]}></img>
             </div>
             <div className="todo-journal-parent">
