@@ -5,7 +5,7 @@ import "./App.css";
 
 //Components
 import Mood from "./components/Mood.js";
-import Calendar from "./components/Calendar.js";
+import CalendarPage from "./components/CalendarPage.js";
 import Daily from "./components/daily-page/Daily.js";
 //logo
 import Logo from "./BetterMe logo Text.png";
@@ -70,13 +70,16 @@ homeButton(){
       <Mood changeMoodToDaily={this.changeMoodToDaily} changeMoodToCalendar={this.changeMoodToCalendar}/>
       : this.state.currentPage === "calendar"
       ?
-      <Calendar/> 
+      <CalendarPage/> 
       : this.state.currentPage === "daily"
       ?
       <Daily date={this.state.date} mood={this.state.mood}/>
 
       : null}
       </nav>
+       <footer className='copyright'>
+      <p > &#169; Copyright Anchali Balankura-Lee 2019</p>
+    </footer>
       </div>
     )
   }

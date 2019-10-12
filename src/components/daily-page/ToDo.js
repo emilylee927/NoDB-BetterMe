@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import axios from "axios";
 import "./ToDo.css";
-import xbutton from "../../x-button.png";
+import ToDoTask from './ToDoTask.js';
 
 class ToDo extends Component {
     constructor(){
@@ -65,7 +65,7 @@ class ToDo extends Component {
 
   toggle = e => {
       let id = e.target.getAttribute("id");
-        axios.post(`/api/betterme/${id}`,{
+        axios.put(`/api/complete/${id}`,{
             date: this.props.date
         }).then( response => {
             let task = this.addEditing(response.data[this.props.date].todo)
@@ -106,12 +106,14 @@ class ToDo extends Component {
     editSubmit = e => {
         e.preventDefault();
         let id = e.target.getAttribute("id");
+        console.log('id: ')
+        console.log(id);
         const index = this.state.task.findIndex(val=>{
             if(val.id == id){
                 return true;
-            } 
+            }
         });
-        axios.post(`/api/betterme/todo/${id}`,{
+        axios.put(`/api/betterme/todo/${id}`,{
             text: this.state.task[index].task,
             date: this.props.date
         }).then(response=>{
@@ -126,8 +128,8 @@ class ToDo extends Component {
     }
 
 
-deleteTask =e => {
-    let id = e.target.getAttribute("id");
+deleteTask = function(id) {
+    return (e => {
     axios.delete(`/api/betterme/todo/${id}`, {
         data: {date: this.props.date}
     }).then(response=>{
@@ -136,24 +138,22 @@ deleteTask =e => {
             task
         })
     })
-
-}
+    })
+}.bind(this)
 
     render(){
         let tasklist = this.state.task.map(val =>{
             return (
-                <div key={val.id} className={'task' + (val.completedTask ? ' completed' : '')}>
-                    <input onClick={this.toggle} id={val.id} checked={val.completedTask ? true : false} className="checkbox" type="checkbox" />
-                    {val.editing == true
-                    ?
-                    <form onSubmit={this.editSubmit} id={val.id} className="displayinline">
-                    <input type="text" value={val.task} onChange={this.handleEdit} id={val.id}></input>
-                    </form>
-                    :
-                    <p className='todotaskadded' onDoubleClick={this.editTodo} id={val.id}>{val.task}</p>
-                    }
-                    <a onClick={this.deleteTask} id={val.id} href="#"><img className="x" src={xbutton}></img></a>
-                </div> 
+                <ToDoTask
+                 id={val.id}
+                 completedTask={val.completedTask}
+                 toggle={this.toggle}
+                 editing={val.editing}
+                 editSubmit={this.editSubmit}
+                 handleEdit={this.handleEdit}
+                 task={val.task}
+                 editTodo={this.editTodo}
+                 deleteTask={this.deleteTask}/>
             )
         })
         return(

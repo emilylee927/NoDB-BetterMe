@@ -22,13 +22,6 @@ let moodMap = {
 }
 
 class Daily extends React.Component{
-    constructor(){
-        super();
-        this.state={
-
-        }
-    }
-
     render(){
         return(
             <div className="daily-parent">
@@ -41,7 +34,7 @@ class Daily extends React.Component{
                     <h1>ToDo</h1>
                     <ToDo date={this.props.date} />
                 </div>
-                <Journal/>
+                <Journal date={this.props.date}/>
             </div>
             </div>
         )

@@ -1,12 +1,13 @@
 let journalPage ={};
 let id =1;
+
 function createPage(req,res){
    const {mood,date} = req.body;
    if(!(date in journalPage)){
    journalPage[date] = {
        mood,
         todo: [],
-       thoughts:"",
+       thoughts:""
        
    }
    console.log(journalPage)
@@ -20,11 +21,13 @@ function createPage(req,res){
    }
 }
 
+
+
 function createToDo(req,res){
  const {todoinput, date}=req.body;
  if (journalPage[date].todo.length < 8) {
     journalPage[date].todo.push({
-        task: todoinput,
+       task: todoinput,
        completedTask: false,
        id
    })
@@ -37,6 +40,12 @@ function createToDo(req,res){
     res.status(403).json(journalPage)
  }
     
+}
+
+function createJournal (req,res){
+    const {journalInput, date}=req.body;
+    journalPage[date].thoughts= journalInput
+    res.status(200).json(journalPage)
 }
 
 
@@ -93,11 +102,16 @@ function deleteTask(req,res){
 }
 
 
+
+
+
 module.exports = {
     createPage,
     createToDo,
     completedTask,
     editToDo,
     getJournalPage,
-    deleteTask
+    deleteTask,
+    createJournal,
+    
 }

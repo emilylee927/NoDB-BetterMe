@@ -1,5 +1,5 @@
 const express = require("express");
-const {createPage, createToDo, completedTask, editToDo, getJournalPage,deleteTask} = require("./BetterMeController.js")
+const {createPage, createToDo, completedTask, editToDo, getJournalPage,deleteTask, createJournal} = require("./BetterMeController.js")
 
 
 const app = express();
@@ -10,9 +10,11 @@ app.post("/api/betterme", createPage)
 
 app.post("/api/betterme/todo", createToDo)
 
-app.post("/api/betterme/todo/:id", editToDo)
+app.post("/api/betterme/journal", createJournal)
 
-app.post("/api/betterme/:id", completedTask)
+app.put("/api/betterme/todo/:id", editToDo)
+
+app.put("/api/complete/:id", completedTask)
 
 app.get("/api/betterme",getJournalPage)
 

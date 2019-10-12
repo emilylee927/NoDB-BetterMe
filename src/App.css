@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 img.homeButton{
     width: 220px;
    
@@ -45,4 +47,18 @@ img.homeButton{
     width:34px;
     padding-left: 10px;
 }
+
+
+
+.copyright{
+    color:rgb(177, 177, 177);
+    font-size: 12px;
+    display:flex;
+    justify-content: center;
+    flex-grow:2;
+    align-self: center;
+    position: absolute;
+    bottom: 0;
+  }
+
 
