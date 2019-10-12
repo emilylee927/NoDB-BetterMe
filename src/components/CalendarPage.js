@@ -57,7 +57,7 @@ class CalendarPage extends React.Component {
 
   render() {
     return (
-      <Calendar dateCellRender={this.dateCellRender}/>
+      <Calendar dateCellRender={this.dateCellRender} fullscreen={false}/>
     )
   }
 }
