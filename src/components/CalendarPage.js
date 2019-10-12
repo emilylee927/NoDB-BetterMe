@@ -32,16 +32,26 @@ class CalendarPage extends React.Component {
 
   dateCellRender(value) {
     let date = value.format('YYYYMMDD');
-    console.log(date);
+    // console.log(date);
     let page = this.state.journalPage[date];
     let mood = null;
     if(typeof page !== "undefined") {
       mood = page.mood;
     }
-    console.log(mood);
+    // console.log(mood);
     return (
-      <img className='emoji' src={moodMap[mood]}></img>
+      <img className='emoji' mood={mood} id={date} onClick={this.linkToJournalPage} src={moodMap[mood]}></img>
     )
+  }
+  
+  linkToJournalPage= e =>{
+    let date = e.target.id;
+    let mood = e.target.getAttribute("mood")
+    console.log(e.target.getAttribute("mood"))
+    console.log("linkToJournalPage")
+    console.log(date)
+    this.props.convertPageToDaily(date,mood)
+   
   }
 
   componentDidMount() {

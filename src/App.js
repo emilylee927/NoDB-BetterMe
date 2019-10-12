@@ -49,6 +49,14 @@ homeButton(){
   })
 }
 
+convertPageToDaily = (date,mood) =>{
+  this.setState({
+    currentPage:"daily",
+    date,
+    mood
+  })
+}
+
   render(){
     return(
       <div className={
@@ -70,7 +78,7 @@ homeButton(){
       <Mood changeMoodToDaily={this.changeMoodToDaily} changeMoodToCalendar={this.changeMoodToCalendar}/>
       : this.state.currentPage === "calendar"
       ?
-      <CalendarPage/> 
+      <CalendarPage convertPageToDaily={this.convertPageToDaily} /> 
       : this.state.currentPage === "daily"
       ?
       <Daily date={this.state.date} mood={this.state.mood}/>

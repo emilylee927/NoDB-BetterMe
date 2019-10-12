@@ -36,6 +36,9 @@ class Mood extends React.Component {
          <Emoji changeMoodToDaily={this.props.changeMoodToDaily} mood={'fun'} dateInput={this.state.dateInput} />
          <Emoji changeMoodToDaily={this.props.changeMoodToDaily} mood={'cool'} dateInput={this.state.dateInput} />
       </section> 
+      <div>
+        <p></p>
+      </div>
       </>
     )
   }
